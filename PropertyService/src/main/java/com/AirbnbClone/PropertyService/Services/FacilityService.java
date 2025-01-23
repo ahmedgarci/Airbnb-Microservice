@@ -17,9 +17,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Service
 public class FacilityService {
-    private final FacilityRepository facilityRepository;
 
-    
+    private final FacilityRepository facilityRepository;
 
     public Set<String> getAllFacilities(){
         return facilityRepository.getAllFacilityNames();
