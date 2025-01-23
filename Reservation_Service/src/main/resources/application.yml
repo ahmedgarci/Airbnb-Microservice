@@ -1,0 +1,6 @@
+spring:
+    config:
+        import: optioal:configserver:http://localhost:8000
+    application:
+        name: Reservation_Service
+

@@ -1,5 +1,12 @@
 package com.AirbnbClone.PropertyService.Responses;
 
+import java.util.List;
+import java.util.Set;
+
+
+import com.AirbnbClone.PropertyService.Comment.PropertyComment;
+import com.AirbnbClone.PropertyService.Facility.Facility;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,6 +26,17 @@ public class PropertyResponse {
     private Integer maxGuests;
     private Integer pricePerNight;
     private String propertyState;
-//    private List<String> photoUrls; 
-//    private Set<Facility> facilities;
+ //   private List<> photoUrls; 
+    private Set<String> facilities;
+    private List<PropertyComment> comments;
+
+    private String propertyType;
+
+
+
+
+
+
+
+
 }
