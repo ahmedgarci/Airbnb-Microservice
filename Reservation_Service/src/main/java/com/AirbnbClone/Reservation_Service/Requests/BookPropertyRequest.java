@@ -7,7 +7,7 @@ import lombok.Getter;
 @Getter
 public class BookPropertyRequest {
     
-    private Intger customerId;
+    private Integer customerId;
 
     private Integer propertyId;
 

@@ -12,7 +12,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import com.AirbnbClone.PropertyService.Exceptions.UnauthorizedAccessException;
+import com.AirbnbClone.PropertyService.Exceptions.customUnauthorizedAccessException;
+import com.AirbnbClone.PropertyService.Exceptions.customEntityNotFoundException;
 import com.AirbnbClone.PropertyService.Facility.Facility;
 import com.AirbnbClone.PropertyService.Facility.FacilityRepository;
 import com.AirbnbClone.PropertyService.Property.Property;
@@ -23,7 +24,6 @@ import com.AirbnbClone.PropertyService.Responses.PageResponse;
 import com.AirbnbClone.PropertyService.Responses.PropertyCardResponse;
 import com.AirbnbClone.PropertyService.Responses.PropertyResponse;
 
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 
@@ -71,7 +71,7 @@ public class PropertyService {
 
 
     public PropertyResponse getPropertyById(@NotNull Integer propertyId){
-        Property property = propertyRepository.getPropertyWithFacilitiesAndComments(propertyId).orElseThrow(()->new EntityNotFoundException("property was not found "));
+        Property property = propertyRepository.getPropertyWithFacilitiesAndComments(propertyId).orElseThrow(()->new customEntityNotFoundException("property was not found "));
         System.out.println("Property ID: " + property.getId());
         System.out.println("Facilities count: " + property.getFacilities().size());       
          return propertyMapper.toPropertyResponse(property);
@@ -80,16 +80,17 @@ public class PropertyService {
 
     public void deletePropertyByHostId(@NotNull Integer propertyId,@NotNull Integer userId){
         // CHECK USER ID
-        Property property = propertyRepository.findById(propertyId).orElseThrow(()->new EntityNotFoundException("property with Id : "+propertyId+" is not found"));
+        Property property = propertyRepository.findById(propertyId).orElseThrow(()->new customEntityNotFoundException("property with Id : "+propertyId+" is not found"));
         if(!property.getHostId().equals(userId)){
-            throw new UnauthorizedAccessException("property do not belong to that user !");
+            throw new customUnauthorizedAccessException("property do not belong to that user !");
         }
         propertyRepository.delete(property);
     }
 
-
-
-
+    public boolean checkIfPropertyExists(Integer propertyId){
+        return propertyRepository.findById(propertyId).isPresent();
+    }
+ 
 
 
 

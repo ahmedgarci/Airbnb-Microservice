@@ -52,7 +52,10 @@ public class PropertyController {
         return ResponseEntity.ok(propertyService.getPropertyById(propertyId));
     }
     
-
+    @GetMapping("exists/{propertyId}")    
+    public ResponseEntity<Boolean> checkIfPropertyExists(@PathVariable Integer propertyId){
+        return ResponseEntity.ok(propertyService.checkIfPropertyExists(propertyId));
+    }
 
 
     
