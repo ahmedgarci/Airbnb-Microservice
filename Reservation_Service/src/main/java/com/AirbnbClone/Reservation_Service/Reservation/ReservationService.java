@@ -1,6 +1,5 @@
 package com.AirbnbClone.Reservation_Service.Reservation;
 
-import java.util.List;
 
 import org.springframework.stereotype.Service;
 
@@ -15,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Service
 public class ReservationService {
+    
         private final ReservationRepository reservationRepository;
         private final ReservationMapper reservationMapper;
         private final IPropertyClient propertyClient;
@@ -28,20 +28,5 @@ public class ReservationService {
             }            
             reservationRepository.save(reservationMapper.toReservation(request));
         }
-
-
-        
-      
-
-
-
-
-
-
-
-
-
-
-
 
 }

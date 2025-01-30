@@ -3,6 +3,7 @@ package com.AirbnbClone.AuthService.Security;
 import java.security.Key;
 import java.util.Date;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,8 @@ import lombok.RequiredArgsConstructor;
 @Service
 public class JwtUtils {
 
-    private final String JwtSecret="1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef";
+    @Value("${jwt.secret}")
+    private String JwtSecret;
 
     public String generateJwtToken(Integer userId,String userEmail){
         return Jwts.builder()

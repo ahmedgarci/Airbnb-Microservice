@@ -13,6 +13,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -29,8 +30,12 @@ public class userEntity implements UserDetails , Principal {
         @GeneratedValue(strategy = GenerationType.SEQUENCE)
         private Integer id;
 
+        @NotBlank
+        @Column(updatable = false, nullable = false,unique = true)        
         private String email;
 
+        @NotBlank
+        @Column(updatable = false, nullable = false)
         private String password;
 
         @Builder.Default

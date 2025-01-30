@@ -9,7 +9,9 @@ public class AuthenticationRequest {
     
     @NotBlank
     private String email;
+    
     @NotBlank
     @Size(min = 8)
     private String password;
+
 }

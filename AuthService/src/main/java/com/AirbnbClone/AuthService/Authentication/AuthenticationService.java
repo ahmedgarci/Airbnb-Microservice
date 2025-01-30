@@ -2,6 +2,7 @@ package com.AirbnbClone.AuthService.Authentication;
 
 import java.util.Optional;
 
+import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -15,6 +16,7 @@ import com.AirbnbClone.AuthService.Requests.AuthenticationRequest;
 import com.AirbnbClone.AuthService.Requests.RegisterRequest;
 import com.AirbnbClone.AuthService.Responses.AuthenticationResponse;
 import com.AirbnbClone.AuthService.Security.JwtUtils;
+import com.AirbnbClone.AuthService.UserClient.UserFeignClient;
 
 import lombok.RequiredArgsConstructor;
 
@@ -26,10 +28,10 @@ public class AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final JwtUtils jwtService;
-
-
+    private final UserFeignClient userFeignClient; 
 
     public void RegisterUser(RegisterRequest request){
+        System.out.println(request.getEmail());
         Optional<userEntity> user = userRepo.findByEmail(request.getEmail());
         if(user.isPresent()){
             throw new UserAlreadyExists("user already exists");
@@ -37,7 +39,7 @@ public class AuthenticationService {
         userEntity newUser = userEntity.builder().email(request.getEmail()).password(
             passwordEncoder.encode(request.getPassword())).build();
         userRepo.save(newUser);
-        // TO SAVE THE USER IN USER M
+        userFeignClient.SaveUser(request);
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request){
