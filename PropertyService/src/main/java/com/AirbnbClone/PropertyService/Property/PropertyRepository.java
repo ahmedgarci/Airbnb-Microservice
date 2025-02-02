@@ -17,7 +17,7 @@ public interface PropertyRepository extends JpaRepository<Property,Integer> {
     @Query("""
         SELECT p FROM Property p
         LEFT JOIN FETCH p.facilities 
-        LEFT JOIN FETCH p.comments
+        Left Join FETCH p.photos
         WHERE p.id = :id
         """)
     Optional<Property> getPropertyWithFacilitiesAndComments(@Param("id") Integer id);

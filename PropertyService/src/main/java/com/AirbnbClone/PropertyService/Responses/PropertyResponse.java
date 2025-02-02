@@ -31,7 +31,7 @@ public class PropertyResponse {
     private List<PropertyComment> comments;
 
     private String propertyType;
-
+    
 
 
 

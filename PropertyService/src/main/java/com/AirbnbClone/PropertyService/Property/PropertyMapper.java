@@ -29,7 +29,8 @@ public class PropertyMapper {
         property.getDescription()).address(property.getAddress()).city(property.getCity()).country(property.getCountry()).maxGuests(property.getMaxGuests())
         .pricePerNight(property.getPricePerNight()).propertyState(property.getPropertyState().toString()).facilities(
         property.getFacilities() != null  ? property.getFacilities().stream().map((element)->element.getName()).collect(Collectors.toSet()): Set.of())
-        .comments(property.getComments() != null ? property.getComments() : List.of()).propertyType( property.getType() != null ? property.getType().toString() : null ).build();
+        .comments(property.getComments() != null ? property.getComments() : List.of()).propertyType( property.getType() != null ? property.getType().toString() : null )
+        .build();
 
     }
 }

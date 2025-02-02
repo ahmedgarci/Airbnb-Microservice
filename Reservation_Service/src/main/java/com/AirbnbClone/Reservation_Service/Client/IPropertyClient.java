@@ -16,7 +16,6 @@ public interface IPropertyClient {
     @GetMapping("exits/{propertyId}")
     Boolean findPropertyById(@PathVariable Integer propertyId);
 
-//    @PatchMapping("updateState/{propertyId}");
     
 
 

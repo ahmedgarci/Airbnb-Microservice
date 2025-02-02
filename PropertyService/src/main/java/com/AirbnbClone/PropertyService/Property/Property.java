@@ -1,13 +1,19 @@
 package com.AirbnbClone.PropertyService.Property;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import com.AirbnbClone.PropertyService.Comment.PropertyComment;
 import com.AirbnbClone.PropertyService.Facility.Facility;
+import com.AirbnbClone.PropertyService.Photo.PropertyPhoto;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
@@ -29,6 +35,7 @@ import lombok.Setter;
 @Setter
 @Builder
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 public class Property {
     
     @Id
@@ -66,4 +73,12 @@ public class Property {
 
     @OneToMany(mappedBy = "property", cascade = CascadeType.ALL,orphanRemoval = true)
     private List<PropertyComment> comments;
+
+    @OneToMany(mappedBy = "property" , cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PropertyPhoto> photos;
+
+
+
+    @CreatedDate()
+    private LocalDateTime CreationDateTime;
 }

@@ -1,8 +1,14 @@
 package com.AirbnbClone.PropertyService.Handler;
 
+import java.util.HashMap;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+
 import com.AirbnbClone.PropertyService.Responses.ErrorResponse;
+
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -26,4 +32,16 @@ public class GlobalExceptionHandler {
         ErrorResponse errorResponse = new ErrorResponse(exception.getMessage(),notFoundStatus);
         return new ResponseEntity<>(errorResponse,HttpStatus.UNAUTHORIZED);
     }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<HashMap<String,String>> handleValidationError(MethodArgumentNotValidException exception){
+        HashMap<String,String> validationErrors = new HashMap<>();
+        for(FieldError error: exception.getBindingResult().getFieldErrors()){
+            validationErrors.put(error.getField(),error.getDefaultMessage());
+        }
+        return new ResponseEntity<>(validationErrors,HttpStatus.BAD_REQUEST);
+
+    }
+
+
 }

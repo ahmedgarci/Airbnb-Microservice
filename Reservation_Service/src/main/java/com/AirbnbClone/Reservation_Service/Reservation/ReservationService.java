@@ -18,15 +18,21 @@ public class ReservationService {
         private final ReservationRepository reservationRepository;
         private final ReservationMapper reservationMapper;
         private final IPropertyClient propertyClient;
-        private final IUserClient userClient;
+     //   private final IUserClient userClient;
 
         public void ReserveAproperty(@NotNull Integer userId, BookPropertyRequest request ){
-            var user = userClient.findUserById(request.getCustomerId());// todo Check User If Exists
-            boolean exists = propertyClient.findPropertyById(request.getPropertyId());
-            if(!exists){
+            // to do
+           //  userClient.a(request.getCustomerId());
+       //     if(!userExists){
+       //         System.out.println("unauthorized");
+       //     }
+            boolean PropertyExists = propertyClient.findPropertyById(request.getPropertyId());
+            if(!PropertyExists){
                 throw new EntityNotFoundException("property was not found");
             }            
             reservationRepository.save(reservationMapper.toReservation(request));
         }
+        
+
 
 }

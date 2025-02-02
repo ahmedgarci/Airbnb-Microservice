@@ -1,5 +1,9 @@
 package com.AirbnbClone.PropertyService.Controller;
 
+import java.util.List;
+
+import javax.swing.plaf.multi.MultiPanelUI;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,6 +12,8 @@ import com.AirbnbClone.PropertyService.Requests.CreatePropertyRequest;
 import com.AirbnbClone.PropertyService.Responses.PageResponse;
 import com.AirbnbClone.PropertyService.Responses.PropertyCardResponse;
 import com.AirbnbClone.PropertyService.Responses.PropertyResponse;
+import com.AirbnbClone.PropertyService.Responses.uploadedPhotoResponse;
+import com.AirbnbClone.PropertyService.Services.FileStorageService;
 import com.AirbnbClone.PropertyService.Services.PropertyService;
 
 import jakarta.validation.Valid;
@@ -18,6 +24,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.bind.annotation.PathVariable;
 
 
@@ -28,11 +36,20 @@ import org.springframework.web.bind.annotation.PathVariable;
 @CrossOrigin(value = "http://localhost:3000")
 public class PropertyController {
     private final PropertyService propertyService;
+    private final FileStorageService fileStorageService;
 
     @PostMapping("create")
     public ResponseEntity<Integer> CreateNewProperty(@RequestBody @Valid CreatePropertyRequest request) {
     return ResponseEntity.ok(propertyService.createNewProperty(request));        
     }
+
+    @PostMapping("upload/photos")
+    public ResponseEntity<List<uploadedPhotoResponse>> uploadFiles(@RequestPart("files") List<MultipartFile> files){
+            return  ResponseEntity.ok(propertyService.saveUploadedPhotos(files));
+    }
+    
+
+
 
     @GetMapping("all")
     public ResponseEntity<PageResponse<PropertyCardResponse>> getProperties(
@@ -57,6 +74,4 @@ public class PropertyController {
         return ResponseEntity.ok(propertyService.checkIfPropertyExists(propertyId));
     }
 
-
-    
 }

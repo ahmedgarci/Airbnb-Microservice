@@ -12,7 +12,6 @@ import com.AirbnbClone.PropertyService.Facility.Facility;
 import com.AirbnbClone.PropertyService.Services.FacilityService;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 
 

@@ -1,5 +1,6 @@
 package com.AirbnbClone.PropertyService.Requests;
 
+import java.util.List;
 import java.util.Set;
 
 import com.AirbnbClone.PropertyService.Facility.Facility;
@@ -30,8 +31,9 @@ public class CreatePropertyRequest {
     private Integer pricePerNight;
     @NotEmpty()
     private Set<String> facilities;
-    
+        
     private PropertyType propertyType;
 
+    private List<Integer> photosIds;
     
 }
