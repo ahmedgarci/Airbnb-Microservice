@@ -22,7 +22,7 @@ public class UserService {
     }
 
     public Integer UpdateUserDetails(UpdateUserDetailsRequest request){
-        
+        return 1;
     }
 
     public UserProfileResponse getUserDetails(){

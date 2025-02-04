@@ -26,6 +26,7 @@ public class ReservationService {
        //     if(!userExists){
        //         System.out.println("unauthorized");
        //     }
+            String
             boolean PropertyExists = propertyClient.findPropertyById(request.getPropertyId());
             if(!PropertyExists){
                 throw new EntityNotFoundException("property was not found");
