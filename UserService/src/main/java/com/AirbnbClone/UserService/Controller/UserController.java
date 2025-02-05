@@ -30,7 +30,7 @@ public class UserController{
     }
 
     @PostMapping(value = "details", consumes = "multipart/form-data")
-    public ResponseEntity<?> FinaliseUserProfileCreation(@RequestPart("file") MultipartFile file,@Valid @RequestBody UpdateUserDetailsRequest request) {
+    public ResponseEntity<?> FinaliseUserProfileCreation( MultipartFile file,@Valid @RequestBody UpdateUserDetailsRequest request) {
         return ResponseEntity.ok("user created ");
     }
     

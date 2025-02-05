@@ -6,7 +6,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.context.annotation.Bean;
+import org.springframework.web.client.HttpClientErrorException;
 
 import lombok.RequiredArgsConstructor;
 
@@ -16,22 +16,22 @@ public class AuthProviderService {
 
     private final RestTemplate restTemplate;
 
-    public void ValidateToken(String token){
-        HttpHeaders httpHeaders = new HttpHeaders();
-        HttpEntity<String> entity = new HttpEntity<>(httpHeaders);
-        httpHeaders.add(HttpHeaders.AUTHORIZATION, token);
-        ResponseEntity<String> response =  restTemplate.exchange("http://localhost:8093/auth/validate",
-        HttpMethod.GET,
-        entity,
-        String.class
-        );
-        System.out.println(response);
-    }
+    public void validateToken(String token) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.set(HttpHeaders.AUTHORIZATION, token);
+        HttpEntity<String> entity = new HttpEntity<>(headers);
 
-    @Bean
-    public RestTemplate restTemplate(){
-        return new RestTemplate();
+        try {
+            ResponseEntity<String> response = restTemplate.exchange(
+                "http://localhost:8093/auth/validate",
+                HttpMethod.GET,
+                entity,
+                String.class
+            );
+            System.out.println("Token validated successfully: " + response.getBody());
+        } catch (HttpClientErrorException e) {
+            System.err.println("Invalid token: " + e.getStatusCode());
+            throw e; 
+        }
     }
-    
-
 }

@@ -50,7 +50,7 @@ public class AuthenticationService {
             new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
         );
         userEntity user = ((userEntity) auth.getPrincipal());
-        return AuthenticationResponse.builder().Token("Bearer "+jwtService.generateJwtToken(user.getId(), user.getEmail())).userName(user.getName()).build();
+        return AuthenticationResponse.builder().Token(jwtService.generateJwtToken(user.getId(), user.getEmail())).userName(user.getName()).build();
         
     }
 
